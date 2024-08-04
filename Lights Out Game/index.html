@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Match the Target Game</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="game-container">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="main-screen">
+      <h1>Welcome to the Match the Target Game</h1>
+      <button id="play">Play</button>
+      <button id="tutorial">Tutorial</button>
+    </div>
+    
+    <div id="game-screen">
+      <div id="game-container">
         <div id="target-container">
-            <h2>Target</h2>
-            <div id="target-image"></div>
+          <h2>Target</h2>
+          <div id="target-image"></div>
         </div>
         <div id="board-container">
-            <h2>Game Board</h2>
-            <div id="game-board"></div>
+          <h2>Game Board</h2>
+          <div id="game-board"></div>
         </div>
-    </div>
-    <div id="level-info">
+      </div>
+      <div id="level-info">
         <p>Level: <span id="level-number">1</span></p>
         <button id="reset">Reset</button>
         <button id="next-level">Next Level</button>
+      </div>
     </div>
+    
+    <!-- Modal for game rules -->
+    <div id="tutorial-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Game Rules</h2>
+        <p>Match the target pattern by toggling cells on the game board...</p>
+        <!-- Add more game rules as needed -->
+      </div>
+    </div>
+
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
