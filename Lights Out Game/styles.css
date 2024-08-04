@@ -1,0 +1,85 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+}
+
+#game-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 20px;
+}
+
+#target-container, #board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#target-image, #game-board {
+  display: grid;
+  grid-template-columns: repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px);
+  gap: 5px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.cell.black {
+  background-color: black;
+}
+
+/* Add this to your existing styles.css file */
+
+#level-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#reset {
+  margin-right: 10px; /* Add spacing between buttons */
+}
+
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  #game-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #target-container, #board-container {
+    width: 100%;
+  }
+
+  #target-image, #game-board {
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 0; /* Adjust gap if needed */
+  }
+
+  .cell {
+    width: 6vw; /* 10% of the viewport width */
+    height: 6vw; /* 10% of the viewport width to keep square cells */
+  }
+}
+
