@@ -29,6 +29,34 @@ body {
     display: none;
   }
   
+  #game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    justify-content: left;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #reset {
+    margin: 0 60px;
+  }
+  #back {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #timer {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
   #game-container {
     display: flex;
     justify-content: space-between;
@@ -68,16 +96,44 @@ body {
     margin-top: 20px;
   }
   
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+  
+  /* Media query cho máy tính bảng */
+@media (max-width: 1024px) {
+    #game-container {
+      flex-direction: column;
+      width: 90%;
+    }
+  
+    #target-container, #board-container {
+      width: 100%;
+    }
+  
+    #target-image, #game-board {
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      gap: 2px; /* Giảm khoảng cách giữa các ô nếu cần */
+    }
+  
+    .cell {
+      width: 8vw; /* Điều chỉnh kích thước ô cho phù hợp với máy tính bảng */
+      height: 8vw; /* Điều chỉnh kích thước ô cho phù hợp với máy tính bảng */
+    }
+  
+    #level-info {
+      width: 90%;
+      justify-content: right;
+    }
+  
+    button {
+      font-size: 14px; /* Điều chỉnh kích thước chữ cho máy tính bảng */
+    }
+  
+    #timer {
+      font-size: 14px; /* Điều chỉnh kích thước chữ cho đồng hồ */
+    }
   }
   
-  #reset {
-    margin-right: 10px;
-  }
-  
+  /* Media query cho thiết bị di động */
   @media (max-width: 768px) {
     #game-container {
       flex-direction: column;
@@ -91,12 +147,24 @@ body {
     #target-image, #game-board {
       grid-template-columns: repeat(8, 1fr);
       grid-template-rows: repeat(8, 1fr);
-      gap: 0;
+      gap: 0; /* Điều chỉnh khoảng cách nếu cần */
     }
   
     .cell {
-      width: 6vw;
-      height: 6vw;
+      width: 10vw; /* 6% của chiều rộng viewport */
+      height: 10vw; /* 6% của chiều rộng viewport */
+    }
+  
+    #level-info {
+      width: 100%;
+    }
+  
+    button {
+      font-size: 16px; /* Điều chỉnh kích thước chữ cho thiết bị di động */
+    }
+  
+    #timer {
+      font-size: 16px; /* Điều chỉnh kích thước chữ cho đồng hồ */
     }
   }
   
