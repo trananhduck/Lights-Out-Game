@@ -1,0 +1,751 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+}
+/* Định nghĩa font chữ */
+@font-face {
+  font-family: 'GameTitleFont';
+  src: url('./SupplyCenter-0W9nz.ttf') format('truetype');
+}
+
+/* Áp dụng font chữ cho tiêu đề game */
+h1 {
+  font-family: 'GameTitleFont', sans-serif;
+  font-size: 3em;
+  color: #fff; 
+  text-align: center;
+  margin: 20px 0; 
+  letter-spacing: 4px;
+  word-spacing: 10px;
+  margin-top: 40px;
+}
+
+#main-screen, #game-screen{
+  background: linear-gradient(135deg, #744ea0, #72d2ec); 
+  border: 2px solid #333; 
+  border-radius: 10px; 
+  padding: 30px; 
+  margin: auto 0;
+  margin-top: 40px;
+}
+#main-screen {
+  text-align: center; 
+}
+
+
+#game-screen {
+  display: none; 
+}
+
+#main-screen, #game-screen, #congratulations-screen {
+  width: 80%;
+  margin: auto;
+}
+
+#main-screen, #congratulations-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#main-screen button, #congratulations-screen button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#congratulations-screen {
+  background: linear-gradient(135deg, #4caf50, #81c784); 
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 80%;
+  max-width: 600px; 
+  margin: 200px auto;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+
+#congratulations-screen h1 {
+  color: #fff; 
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+#congratulations-screen p {
+  color: #fff;
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+#congratulations-screen button {
+  background: linear-gradient(135deg, #4caf50, #66bb6a); 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: none 0.3s ease;
+}
+
+#congratulations-screen button:hover {
+  background: linear-gradient(135deg, #388e3c, #81c784); 
+}
+
+#congratulations-screen .stats {
+  background-color: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
+}
+
+#congratulations-screen .stats p {
+  font-size: 1.1em;
+  color: #333;
+  margin: 5px 0;
+}
+#target-container, #board-container {
+  position: relative;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 10px; 
+  background-color: #2b69ba; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#target-container {
+  border-color: #03a9f4; 
+}
+
+#board-container {
+  border-color: #2ed547; 
+}
+
+button {
+  font-size: 1.4em; 
+  padding: 0.6em 0.8em;
+  border-radius: 0.5em;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 2px 2px 3px #000000b4;
+  transition: all 0.3s ease;
+}
+
+button:disabled {
+  background-color: #888;
+  color: #fff;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#game-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+#game-header button {
+  margin: 0 10px; 
+  padding: 10px 15px; 
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; 
+  color: white;
+  font-size: 16px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+#game-header button:disabled {
+  background-color: #9E9E9E; 
+  cursor: not-allowed; 
+}
+
+#game-header button:hover:not(:disabled) {
+  background-color: #45a049; 
+}
+
+#undo{
+  right: 10px; 
+  top: 10px;   
+}
+
+
+#reset {
+  margin: 0 60px;
+}
+
+#game-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#target-container, #board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#target-image, #game-board {
+  display: grid;
+  grid-template-columns: repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px);
+  gap: 5px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.cell.black {
+  background-color: black;
+}
+
+#level-info {
+  background: #ffffff; 
+  border: 2px solid #ccc; 
+  border-radius: 10px; 
+  padding: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  margin-top: 20px; 
+  display: flex;
+  justify-content: space-between; /* Để các phần tử phân bố đều trong không gian */
+  align-items: center;
+}
+
+#level-info p {
+  font-size: 18px; 
+  font-weight: bold; 
+  margin: 0; 
+}
+
+#next-level {
+  background: linear-gradient(135deg, #4caf50, #81c784); 
+  color: white; 
+  border: none; 
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px; 
+  transition: none 0.3s ease; 
+}
+
+#next-level:disabled {
+  background: #d3d3d3; 
+  cursor: not-allowed; 
+}
+
+#next-level:hover:not(:disabled) {
+  background: linear-gradient(135deg, #388e3c, #66bb6a); 
+}
+
+#timer {
+  font-size: 18px; 
+  font-weight: bold; 
+}
+
+/* Modal Background */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px; 
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe; 
+  margin: 5% auto; 
+  border: 1px solid #888;
+  width: 80%; 
+  max-width: 600px; 
+  border-radius: 10px; 
+  text-align: center; 
+}
+
+/* Close Button */
+.close {
+  color: #aaa; 
+  float: right;
+  font-size: 28px; 
+  font-weight: bold; 
+}
+
+.close:hover,
+.close:focus {
+  color: black; 
+  text-decoration: none; 
+  cursor: pointer; 
+}
+
+/* Modal Title */
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 1.5em; 
+}
+
+/* List Items */
+.modal-content ul {
+  list-style-type: none;
+  padding: 0; 
+}
+
+.modal-content li {
+  font-size: 1.1em; 
+  margin: 10px 0;
+}
+
+#help-modal .modal-content {
+  background-color: #fff;
+  border: 1px solid #888;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#help-modal a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+#help-modal a:hover {
+  text-decoration: underline;
+}
+
+.close-help {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close-help:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.close, .close-exit {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close-exit:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#confirm-exit, #cancel-exit {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#confirm-exit {
+  background-color: #4caf50; 
+  color: white; 
+}
+
+#cancel-exit {
+  background-color: #f44336;
+  color: white;
+}
+
+#main-screen .loader {
+  --loader-cell-size: 52px;
+  --loader-cell-spacing: 1px;
+  --loader-cells: 3;
+  --total-size: calc(var(--loader-cells) * (var(--loader-cell-size) + 2 * var(--loader-cell-spacing)));
+  display: flex;
+  flex-wrap: wrap;
+  width: var(--total-size);
+  height: var(--total-size);
+  justify-content: center;
+  margin: 80px auto 80px;
+}
+
+#main-screen  .loader-cell {
+  flex: 0 0 var(--loader-cell-size);
+  margin: var(--loader-cell-spacing);
+  background-color: transparent;
+  box-sizing: border-box;
+  border-radius: 4px;
+  animation: 1.5s ripple ease infinite;
+}
+
+#main-screen  .loader-cell.d-1 {
+  animation-delay: 100ms;
+}
+
+#main-screen .loader-cell.d-2 {
+  animation-delay: 200ms;
+}
+
+#main-screen  .loader-cell.d-3 {
+  animation-delay: 300ms;
+}
+
+#main-screen .loader-cell.d-4 {
+  animation-delay: 400ms;
+}
+
+#main-screen .loader-cell:nth-child(1) {
+  --loader-cell-color: #00FF87;
+}
+
+#main-screen .loader-cell:nth-child(2) {
+  --loader-cell-color: #0CFD95;
+}
+
+#main-screen .loader-cell:nth-child(3) {
+  --loader-cell-color: #17FBA2;
+}
+
+#main-screen .loader-cell:nth-child(4) {
+  --loader-cell-color: #23F9B2;
+}
+
+#main-screen .loader-cell:nth-child(5) {
+  --loader-cell-color: #30F7C3;
+}
+
+#main-screen .loader-cell:nth-child(6) {
+  --loader-cell-color: #3DF5D4;
+}
+
+#main-screen .loader-cell:nth-child(7) {
+  --loader-cell-color: #45F4DE;
+}
+
+#main-screen .loader-cell:nth-child(8) {
+  --loader-cell-color: #53F1F0;
+}
+
+#main-screen .loader-cell:nth-child(9) {
+  --loader-cell-color: #60EFFF;
+}
+
+/*Animation*/
+@keyframes ripple {
+  0% {
+    background-color: transparent;
+  }
+
+  30% {
+    background-color: var(--loader-cell-color);
+  }
+
+  60% {
+    background-color: transparent;
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+/* Existing CSS */
+
+@keyframes firework {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+.firework {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 60%, rgba(255, 255, 255, 0.8) 100%);
+  animation: firework 1.5s ease-out forwards;
+  pointer-events: none;
+}
+
+.firework:before, .firework:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  transform: translate(-50%, -50%);
+  animation: firework 1s ease-out forwards;
+}
+
+.firework:before {
+  animation-delay: 0.5s;
+  width: 15px;
+  height: 15px;
+}
+
+.firework:after {
+  animation-delay: 1s;
+  width: 10px;
+  height: 10px;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  #main-screen, #game-screen, #congratulations-screen {
+    width: 90%;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  #main-screen .loader{
+    margin: 100px 0 200px 0;
+  }
+  h1 {
+    font-size: 2em;
+  }
+
+  #game-header {
+    flex-direction: row; 
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between; 
+    margin-bottom: 20px; 
+    margin-top: 40px;
+  }
+
+  #game-header button {
+    margin: 0 5px; 
+    padding: 8px 12px;
+    font-size: 14px; 
+    margin-bottom: 20px;
+  }
+
+  #undo {
+    position: static; /* Remove absolute positioning on mobile */
+    margin: 0 5px; /* Adjust spacing */
+  }
+
+  #reset {
+    margin: 0 5px;
+  }
+
+  #game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #target-container, #board-container {
+    width: calc(100% - 20px); 
+    margin: 0;
+  }
+
+  #target-container {
+    margin-bottom: 10px;
+  }
+
+  #target-image, #game-board {
+    grid-template-columns: repeat(8, 30px); 
+    grid-template-rows: repeat(8, 30px); 
+    gap: 2px; 
+    margin-bottom: 20px;
+  }
+
+  .cell {
+    width: 30px;
+    height: 30px;
+  }
+
+  #level-info {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  #level-info p {
+    font-size: 16px;
+  }
+
+  #next-level {
+    margin-top: 10px;
+  }
+
+  /* Modal Styles */ 
+  .modal-content {
+    width: 90%; 
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.2em; 
+  }
+
+  .modal-content li {
+    font-size: 1em; 
+  }
+
+  #confirm-exit, #cancel-exit {
+    padding: 8px 16px;
+    font-size: 14px; 
+  }
+  #congratulations-screen {
+    width: 90%;
+    margin: 0 auto; 
+    max-width: 400px; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    position: absolute; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+  }
+
+  #congratulations-screen .modal-content {
+    width: 100%; 
+    padding: 20px; 
+    box-sizing: border-box; 
+  }
+  #congratulations-screen h1 {
+    font-size: 1.5em; 
+  }
+  #congratulations-screen p {
+    font-size: 1em;
+  }
+  #congratulations-screen button {
+    padding: 10px 15px; 
+    font-size: 14px; 
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  body {
+    font-size: 16px;
+  }
+  #main-screen, #game-screen, #congratulations-screen {
+    width: 80%; 
+    padding: 20px;
+    margin: 30px 0 30px;
+  }
+  h1 {
+    font-size: 2.5em; 
+  }
+  #game-header {
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    align-items: center;
+    justify-content: space-between; 
+    margin-bottom: 30px;
+    margin-top: 50px;
+  }
+  #game-header button {
+    margin: 0 10px; 
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  #undo, #reset {
+    margin: 0 10px;
+  }
+  #game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #target-container, #board-container {
+    width: calc(100% - 40px); 
+    margin: 0; 
+  }
+
+  #target-container {
+    margin-bottom: 20px;
+  }
+
+  #target-image, #game-board {
+    grid-template-columns: repeat(8, 30px);
+    grid-template-rows: repeat(8, 30px); 
+    gap: 4px; 
+    margin-bottom: 30px;
+  }
+
+  .cell {
+    width: 30px;
+    height: 30px;
+  }
+
+  #level-info {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  #level-info p {
+    font-size: 18px; 
+  }
+
+  #next-level {
+    margin-top: 20px; 
+  }
+
+  .modal-content {
+    width: 80%; 
+  }
+  .modal-content h2 {
+    font-size: 1.5em;
+  }
+  .modal-content li {
+    font-size: 1.2em; 
+  }
+  #confirm-exit, #cancel-exit {
+    padding: 10px 20px; 
+    font-size: 16px; 
+  }
+}
+@media (min-width: 1024px) and (max-width: 1124px) {
+  #game-container {
+    flex-direction: column; 
+    align-items: center; 
+  }
+  #target-container, #board-container {
+    width: 100%; 
+    max-width: 500px;
+    margin: 10px 0; 
+  }
+
+  #target-image, #game-board {
+    grid-template-columns: repeat(8, 40px); 
+    grid-template-rows: repeat(8, 40px);
+    gap: 4px;
+  }
+
+  .cell {
+    width: 40px; 
+    height: 40px; 
+  }
+}
