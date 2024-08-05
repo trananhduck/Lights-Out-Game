@@ -1,15 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const size = 8;
   let levels = [];
   let currentLevel = 0;
   let timer;
   let seconds = 0;
-
-  const targetContainer = document.getElementById('target-image');
-  const gameBoardContainer = document.getElementById('game-board');
-  const levelNumberElement = document.getElementById('level-number');
-  const nextLevelButton = document.getElementById('next-level');
-  const resetButton = document.getElementById('reset');
 
   const mainScreen = document.getElementById('main-screen');
   const gameScreen = document.getElementById('game-screen');
@@ -19,31 +13,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const modal = document.getElementById('tutorial-modal');
   const closeModal = document.querySelector('.close');
   const backButton = document.getElementById('back');
+  const exitModal = document.getElementById('exit-modal');
+  const closeExitModal = document.querySelector('.close-exit');
+  const confirmExitButton = document.getElementById('confirm-exit');
+  const cancelExitButton = document.getElementById('cancel-exit');
   const timerElement = document.getElementById('time');
   const finalTimeElement = document.getElementById('final-time');
   const backToMainButton = document.getElementById('back-to-main');
 
-  let targetCells = [];
-  let gameCells = [];
+  const targetContainer = document.getElementById('target-image');
+  const gameBoardContainer = document.getElementById('game-board');
+  const levelNumberElement = document.getElementById('level-number');
+  const nextLevelButton = document.getElementById('next-level');
+  const resetButton = document.getElementById('reset');
 
   function createGrid(container, isTarget = false) {
     container.innerHTML = '';
-    const cells = [];
-    for (let i = 0; i < size; i++) {
-      cells[i] = [];
-      for (let j = 0; j < size; j++) {
+    const cells = Array.from({ length: size }, () => Array(size).fill(null));
+    cells.forEach((row, i) => {
+      row.forEach((_, j) => {
         const cell = document.createElement('div');
         cell.classList.add('cell');
         if (!isTarget) {
-          cell.addEventListener('click', function() {
+          cell.addEventListener('click', () => {
             toggleCellAndNeighbors(i, j, cells);
-            checkLevelCompletion(targetCells, cells);
+            checkLevelCompletion(cells);
           });
         }
         container.appendChild(cell);
         cells[i][j] = cell;
-      }
-    }
+      });
+    });
     return cells;
   }
 
@@ -56,29 +56,20 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function toggleCellColor(cell) {
-    if (cell) {
-      cell.classList.toggle('black');
-    }
+    cell.classList.toggle('black');
   }
 
-  function setTargetPattern(targetCells, pattern) {
+  function setTargetPattern(cells, pattern) {
     pattern.forEach(([row, col]) => {
-      toggleCellAndNeighbors(row, col, targetCells);
+      toggleCellAndNeighbors(row, col, cells);
     });
   }
 
   function checkPatternMatch(targetCells, gameCells) {
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
-        if (targetCells[i][j].classList.contains('black') !== gameCells[i][j].classList.contains('black')) {
-          return false;
-        }
-      }
-    }
-    return true;
+    return targetCells.every((row, i) => row.every((cell, j) => cell.classList.contains('black') === gameCells[i][j].classList.contains('black')));
   }
 
-  function checkLevelCompletion(targetCells, gameCells) {
+  function checkLevelCompletion(gameCells) {
     if (checkPatternMatch(targetCells, gameCells)) {
       nextLevelButton.disabled = false;
     }
@@ -90,8 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
     gameCells = createGrid(gameBoardContainer);
     setTargetPattern(targetCells, levels[level]);
     nextLevelButton.disabled = true;
-    checkLevelCompletion(targetCells, gameCells);
-    startTimer(); // Start the timer when loading a new level
+    checkLevelCompletion(gameCells);
+    startTimer();
   }
 
   function fetchLevels() {
@@ -105,11 +96,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function resetGame() {
-    loadLevel(currentLevel); // Reload the current level without resetting the timer
+    loadLevel(currentLevel);
   }
 
   function startTimer() {
-    if (timer) clearInterval(timer); // Clear existing timer
+    clearInterval(timer);
     timer = setInterval(() => {
       seconds++;
       updateTimerDisplay();
@@ -128,50 +119,70 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function showCongratulationsScreen() {
-    clearInterval(timer); // Stop the timer
-    finalTimeElement.textContent = timerElement.textContent; // Set final time
+    clearInterval(timer);
+    finalTimeElement.textContent = timerElement.textContent;
     gameScreen.style.display = 'none';
     congratulationsScreen.style.display = 'block';
   }
 
-  playButton.addEventListener('click', function() {
+  playButton.addEventListener('click', () => {
     mainScreen.style.display = 'none';
     gameScreen.style.display = 'block';
+    currentLevel = 0; // Reset to level 1
+    seconds = 0; // Reset timer
+    timerElement.textContent = '00:00:00'; // Reset timer display
     resetGame();
   });
 
-  tutorialButton.addEventListener('click', function() {
+  tutorialButton.addEventListener('click', () => {
     modal.style.display = 'block';
   });
 
-  closeModal.addEventListener('click', function() {
+  closeModal.addEventListener('click', () => {
     modal.style.display = 'none';
   });
 
-  backButton.addEventListener('click', function() {
-    gameScreen.style.display = 'none';
-    mainScreen.style.display = 'block';
-    clearInterval(timer); // Stop the timer when going back to main screen
-    seconds = 0;
-    timerElement.textContent = '00:00:00'; // Reset timer display
+  window.addEventListener('click', (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
   });
 
-  nextLevelButton.addEventListener('click', function() {
-    if (currentLevel < levels.length - 1) {
-      currentLevel++;
+  backButton.addEventListener('click', () => {
+    exitModal.style.display = 'block';
+  });
+
+  closeExitModal.addEventListener('click', () => {
+    exitModal.style.display = 'none';
+  });
+
+  cancelExitButton.addEventListener('click', () => {
+    exitModal.style.display = 'none';
+  });
+
+  confirmExitButton.addEventListener('click', () => {
+    clearInterval(timer);
+    seconds = 0;
+    timerElement.textContent = '00:00:00';
+    exitModal.style.display = 'none';
+    gameScreen.style.display = 'none';
+    mainScreen.style.display = 'flex';
+  });
+
+  nextLevelButton.addEventListener('click', () => {
+    currentLevel++;
+    if (currentLevel < levels.length) {
       loadLevel(currentLevel);
     } else {
-      showCongratulationsScreen(); // Show congratulations screen when all levels are completed
+      showCongratulationsScreen();
     }
   });
 
   resetButton.addEventListener('click', resetGame);
 
-  backToMainButton.addEventListener('click', function() {
+  backToMainButton.addEventListener('click', () => {
     congratulationsScreen.style.display = 'none';
-    mainScreen.style.display = 'block';
-    seconds = 0;
-    timerElement.textContent = '00:00:00'; // Reset timer display
+    mainScreen.style.display = 'flex';
   });
 
   fetchLevels();
