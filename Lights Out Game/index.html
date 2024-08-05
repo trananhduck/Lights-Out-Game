@@ -12,15 +12,15 @@
     <div id="main-screen">
       <h1>Lights Out Game</h1>
       <div class="loader">
-        <div class="cell d-0"></div>
-        <div class="cell d-1"></div>
-        <div class="cell d-2"></div>
-        <div class="cell d-1"></div>
-        <div class="cell d-2"></div>
-        <div class="cell d-2"></div>
-        <div class="cell d-3"></div>
-        <div class="cell d-3"></div>
-        <div class="cell d-4"></div>
+        <div class="loader-cell d-0"></div>
+        <div class="loader-cell d-1"></div>
+        <div class="loader-cell d-2"></div>
+        <div class="loader-cell d-1"></div>
+        <div class="loader-cell d-2"></div>
+        <div class="loader-cell d-2"></div>
+        <div class="loader-cell d-3"></div>
+        <div class="loader-cell d-3"></div>
+        <div class="loader-cell d-4"></div>
       </div>
       <button id="play">Play</button>
       <button id="tutorial">Tutorial</button>
@@ -30,9 +30,9 @@
     <!-- Game Screen -->
     <div id="game-screen" style="display: none">
       <div id="game-header">
+        <div id="timer">Time: <span id="time">00:00:00</span></div>
         <button id="back">Back</button>
         <button id="reset">Reset</button>
-        <div id="timer">Time: <span id="time">00:00:00</span></div>
         <button id="undo">Undo</button>
       </div>
       <div id="game-container">
@@ -87,7 +87,7 @@
         <span class="close-help">&times;</span>
         <h2>Help</h2>
         <p>For solution of this game, visit the following link:</p>
-        <a href="https://example.com/answers" target="_blank"
+        <a href="https://www.youtube.com/" target="_blank"
           >Click here for soltuion</a
         >
       </div>
