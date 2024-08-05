@@ -28,7 +28,9 @@ h1 {
   background: linear-gradient(135deg, #744ea0, #72d2ec); 
   border: 2px solid #333; 
   border-radius: 10px; 
-  padding: 20px; 
+  padding: 30px; 
+  margin: auto 0;
+  margin-top: 40px;
 }
 #main-screen {
   text-align: center; 
@@ -90,7 +92,7 @@ h1 {
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
-  transition: background 0.3s ease;
+  transition: none 0.3s ease;
 }
 
 #congratulations-screen button:hover {
@@ -111,8 +113,8 @@ h1 {
   color: #333;
   margin: 5px 0;
 }
-
 #target-container, #board-container {
+  position: relative;
   border: 2px solid #333;
   border-radius: 10px;
   padding: 10px; 
@@ -176,7 +178,6 @@ button:disabled {
 }
 
 #undo{
-  position: absolute;
   right: 10px; 
   top: 10px;   
 }
@@ -218,59 +219,59 @@ button:disabled {
 }
 
 #level-info {
-  background: #ffffff; /* Nền trắng cho phần thông tin */
-  border: 2px solid #ccc; /* Khung màu xám nhạt */
-  border-radius: 10px; /* Để các góc của khung tròn */
-  padding: 10px; /* Khoảng cách giữa nội dung và khung */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng mờ */
-  margin-top: 20px; /* Khoảng cách từ phần trên */
+  background: #ffffff; 
+  border: 2px solid #ccc; 
+  border-radius: 10px; 
+  padding: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  margin-top: 20px; 
   display: flex;
   justify-content: space-between; /* Để các phần tử phân bố đều trong không gian */
   align-items: center;
 }
 
 #level-info p {
-  font-size: 18px; /* Kích thước chữ cho thông tin Level */
-  font-weight: bold; /* Làm đậm chữ */
-  margin: 0; /* Bỏ khoảng cách ngoài của phần tử p */
+  font-size: 18px; 
+  font-weight: bold; 
+  margin: 0; 
 }
 
 #next-level {
-  background: linear-gradient(135deg, #4caf50, #81c784); /* Gradient từ xanh lá đậm đến sáng */
-  color: white; /* Màu chữ trắng */
-  border: none; /* Bỏ khung viền */
-  border-radius: 5px; /* Để các góc của nút tròn */
-  padding: 10px 20px; /* Khoảng cách trong nút */
-  cursor: pointer; /* Con trỏ tay khi di chuột qua nút */
-  font-size: 16px; /* Kích thước chữ cho nút */
-  transition: background 0.3s ease; /* Hiệu ứng chuyển màu nền khi hover */
+  background: linear-gradient(135deg, #4caf50, #81c784); 
+  color: white; 
+  border: none; 
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px; 
+  transition: none 0.3s ease; 
 }
 
 #next-level:disabled {
-  background: #d3d3d3; /* Màu nền xám cho nút bị khóa */
-  cursor: not-allowed; /* Con trỏ tay bị khóa khi di chuột qua nút */
+  background: #d3d3d3; 
+  cursor: not-allowed; 
 }
 
 #next-level:hover:not(:disabled) {
-  background: linear-gradient(135deg, #388e3c, #66bb6a); /* Gradient khi hover trên nút */
+  background: linear-gradient(135deg, #388e3c, #66bb6a); 
 }
 
 #timer {
-  font-size: 18px; /* Kích thước chữ cho đồng hồ */
-  font-weight: bold; /* Làm đậm chữ */
+  font-size: 18px; 
+  font-weight: bold; 
 }
 
 /* Modal Background */
 .modal {
-  display: none; /* Hide modal by default */
+  display: none; 
   position: fixed;
-  z-index: 1; /* Sit on top */
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+  width: 100%; 
+  height: 100%;
+  overflow: auto; 
+  background-color: rgba(0, 0, 0, 0.4);
   padding-top: 60px; 
 }
 
@@ -378,10 +379,10 @@ button:disabled {
 }
 
 #main-screen .loader {
-  --cell-size: 52px;
-  --cell-spacing: 1px;
-  --cells: 3;
-  --total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing)));
+  --loader-cell-size: 52px;
+  --loader-cell-spacing: 1px;
+  --loader-cells: 3;
+  --total-size: calc(var(--loader-cells) * (var(--loader-cell-size) + 2 * var(--loader-cell-spacing)));
   display: flex;
   flex-wrap: wrap;
   width: var(--total-size);
@@ -390,65 +391,65 @@ button:disabled {
   margin: 80px auto 80px;
 }
 
-#main-screen  .cell {
-  flex: 0 0 var(--cell-size);
-  margin: var(--cell-spacing);
+#main-screen  .loader-cell {
+  flex: 0 0 var(--loader-cell-size);
+  margin: var(--loader-cell-spacing);
   background-color: transparent;
   box-sizing: border-box;
   border-radius: 4px;
   animation: 1.5s ripple ease infinite;
 }
 
-#main-screen  .cell.d-1 {
+#main-screen  .loader-cell.d-1 {
   animation-delay: 100ms;
 }
 
-#main-screen .cell.d-2 {
+#main-screen .loader-cell.d-2 {
   animation-delay: 200ms;
 }
 
-#main-screen  .cell.d-3 {
+#main-screen  .loader-cell.d-3 {
   animation-delay: 300ms;
 }
 
-#main-screen .cell.d-4 {
+#main-screen .loader-cell.d-4 {
   animation-delay: 400ms;
 }
 
-#main-screen .cell:nth-child(1) {
-  --cell-color: #00FF87;
+#main-screen .loader-cell:nth-child(1) {
+  --loader-cell-color: #00FF87;
 }
 
-#main-screen .cell:nth-child(2) {
-  --cell-color: #0CFD95;
+#main-screen .loader-cell:nth-child(2) {
+  --loader-cell-color: #0CFD95;
 }
 
-#main-screen .cell:nth-child(3) {
-  --cell-color: #17FBA2;
+#main-screen .loader-cell:nth-child(3) {
+  --loader-cell-color: #17FBA2;
 }
 
-#main-screen .cell:nth-child(4) {
-  --cell-color: #23F9B2;
+#main-screen .loader-cell:nth-child(4) {
+  --loader-cell-color: #23F9B2;
 }
 
-#main-screen .cell:nth-child(5) {
-  --cell-color: #30F7C3;
+#main-screen .loader-cell:nth-child(5) {
+  --loader-cell-color: #30F7C3;
 }
 
-#main-screen .cell:nth-child(6) {
-  --cell-color: #3DF5D4;
+#main-screen .loader-cell:nth-child(6) {
+  --loader-cell-color: #3DF5D4;
 }
 
-#main-screen .cell:nth-child(7) {
-  --cell-color: #45F4DE;
+#main-screen .loader-cell:nth-child(7) {
+  --loader-cell-color: #45F4DE;
 }
 
-#main-screen .cell:nth-child(8) {
-  --cell-color: #53F1F0;
+#main-screen .loader-cell:nth-child(8) {
+  --loader-cell-color: #53F1F0;
 }
 
-#main-screen .cell:nth-child(9) {
-  --cell-color: #60EFFF;
+#main-screen .loader-cell:nth-child(9) {
+  --loader-cell-color: #60EFFF;
 }
 
 /*Animation*/
@@ -458,7 +459,7 @@ button:disabled {
   }
 
   30% {
-    background-color: var(--cell-color);
+    background-color: var(--loader-cell-color);
   }
 
   60% {
@@ -511,4 +512,240 @@ button:disabled {
   animation-delay: 1s;
   width: 10px;
   height: 10px;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  #main-screen, #game-screen, #congratulations-screen {
+    width: 90%;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  #main-screen .loader{
+    margin: 100px 0 200px 0;
+  }
+  h1 {
+    font-size: 2em;
+  }
+
+  #game-header {
+    flex-direction: row; 
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between; 
+    margin-bottom: 20px; 
+    margin-top: 40px;
+  }
+
+  #game-header button {
+    margin: 0 5px; 
+    padding: 8px 12px;
+    font-size: 14px; 
+    margin-bottom: 20px;
+  }
+
+  #undo {
+    position: static; /* Remove absolute positioning on mobile */
+    margin: 0 5px; /* Adjust spacing */
+  }
+
+  #reset {
+    margin: 0 5px;
+  }
+
+  #game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #target-container, #board-container {
+    width: calc(100% - 20px); 
+    margin: 0;
+  }
+
+  #target-container {
+    margin-bottom: 10px;
+  }
+
+  #target-image, #game-board {
+    grid-template-columns: repeat(8, 30px); 
+    grid-template-rows: repeat(8, 30px); 
+    gap: 2px; 
+    margin-bottom: 20px;
+  }
+
+  .cell {
+    width: 30px;
+    height: 30px;
+  }
+
+  #level-info {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  #level-info p {
+    font-size: 16px;
+  }
+
+  #next-level {
+    margin-top: 10px;
+  }
+
+  /* Modal Styles */ 
+  .modal-content {
+    width: 90%; 
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.2em; 
+  }
+
+  .modal-content li {
+    font-size: 1em; 
+  }
+
+  #confirm-exit, #cancel-exit {
+    padding: 8px 16px;
+    font-size: 14px; 
+  }
+  #congratulations-screen {
+    width: 90%;
+    margin: 0 auto; 
+    max-width: 400px; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    position: absolute; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+  }
+
+  #congratulations-screen .modal-content {
+    width: 100%; 
+    padding: 20px; 
+    box-sizing: border-box; 
+  }
+  #congratulations-screen h1 {
+    font-size: 1.5em; 
+  }
+  #congratulations-screen p {
+    font-size: 1em;
+  }
+  #congratulations-screen button {
+    padding: 10px 15px; 
+    font-size: 14px; 
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  body {
+    font-size: 16px;
+  }
+  #main-screen, #game-screen, #congratulations-screen {
+    width: 80%; 
+    padding: 20px;
+    margin: 30px 0 30px;
+  }
+  h1 {
+    font-size: 2.5em; 
+  }
+  #game-header {
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    align-items: center;
+    justify-content: space-between; 
+    margin-bottom: 30px;
+    margin-top: 50px;
+  }
+  #game-header button {
+    margin: 0 10px; 
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+  #undo, #reset {
+    margin: 0 10px;
+  }
+  #game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #target-container, #board-container {
+    width: calc(100% - 40px); 
+    margin: 0; 
+  }
+
+  #target-container {
+    margin-bottom: 20px;
+  }
+
+  #target-image, #game-board {
+    grid-template-columns: repeat(8, 30px);
+    grid-template-rows: repeat(8, 30px); 
+    gap: 4px; 
+    margin-bottom: 30px;
+  }
+
+  .cell {
+    width: 30px;
+    height: 30px;
+  }
+
+  #level-info {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  #level-info p {
+    font-size: 18px; 
+  }
+
+  #next-level {
+    margin-top: 20px; 
+  }
+
+  .modal-content {
+    width: 80%; 
+  }
+  .modal-content h2 {
+    font-size: 1.5em;
+  }
+  .modal-content li {
+    font-size: 1.2em; 
+  }
+  #confirm-exit, #cancel-exit {
+    padding: 10px 20px; 
+    font-size: 16px; 
+  }
+}
+@media (min-width: 1024px) and (max-width: 1124px) {
+  #game-container {
+    flex-direction: column; 
+    align-items: center; 
+  }
+  #target-container, #board-container {
+    width: 100%; 
+    max-width: 500px;
+    margin: 10px 0; 
+  }
+
+  #target-image, #game-board {
+    grid-template-columns: repeat(8, 40px); 
+    grid-template-rows: repeat(8, 40px);
+    gap: 4px;
+  }
+
+  .cell {
+    width: 40px; 
+    height: 40px; 
+  }
 }
