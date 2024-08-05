@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const playButton = document.getElementById('play');
   const tutorialButton = document.getElementById('tutorial');
   const modal = document.getElementById('tutorial-modal');
+  const helpButton = document.getElementById('help');
+  const helpModal = document.getElementById('help-modal');
+  const closeHelpModal = document.querySelector('.close-help');
   const closeModal = document.querySelector('.close');
   const backButton = document.getElementById('back');
   const exitModal = document.getElementById('exit-modal');
@@ -168,6 +171,19 @@ document.addEventListener('DOMContentLoaded', function () {
     gameScreen.style.display = 'none';
     mainScreen.style.display = 'flex';
   });
+  helpButton.addEventListener('click', () => {
+    helpModal.style.display = 'block';
+  });
+
+  closeHelpModal.addEventListener('click', () => {
+    helpModal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (event) => {
+    if (event.target == helpModal) {
+      helpModal.style.display = 'none';
+    }
+  });
 
   nextLevelButton.addEventListener('click', () => {
     currentLevel++;
@@ -175,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
       loadLevel(currentLevel);
     } else {
       showCongratulationsScreen();
+      startConfetti();
     }
   });
 
@@ -186,4 +203,86 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   fetchLevels();
+  const undoButton = document.getElementById('undo');
+  let history = [];
+  let historyIndex = -1;
+
+  function createGrid(container, isTarget = false) {
+    container.innerHTML = '';
+    const cells = Array.from({ length: size }, () => Array(size).fill(null));
+    cells.forEach((row, i) => {
+      row.forEach((_, j) => {
+        const cell = document.createElement('div');
+        cell.classList.add('cell');
+        if (!isTarget) {
+          cell.addEventListener('click', () => {
+            const currentState = getCurrentState();
+            toggleCellAndNeighbors(i, j, cells);
+            checkLevelCompletion(cells);
+            addToHistory(currentState);
+          });
+        }
+        container.appendChild(cell);
+        cells[i][j] = cell;
+      });
+    });
+    return cells;
+  }
+
+  function addToHistory(state) {
+    if (historyIndex < history.length - 1) {
+      history = history.slice(0, historyIndex + 1);
+    }
+    history.push(state);
+    historyIndex++;
+    undoButton.disabled = false;
+  }
+
+  function undo() {
+    if (historyIndex >= 0) {
+      const state = history[historyIndex];
+      historyIndex--;
+      applyState(state);
+      if (historyIndex < 0) {
+        undoButton.disabled = true;
+      }
+    }
+  }
+
+  function getCurrentState() {
+    return Array.from(document.querySelectorAll('#game-board .cell')).map(cell => cell.classList.contains('black'));
+  }
+
+  function applyState(state) {
+    const cells = document.querySelectorAll('#game-board .cell');
+    cells.forEach((cell, index) => {
+      cell.classList.toggle('black', state[index]);
+    });
+  }
+
+  undoButton.addEventListener('click', undo);
+  function startConfetti() {
+    const duration = 5 * 1000; // Thời gian hiệu ứng pháo hoa (5 giây)
+    const end = Date.now() + duration;
+
+    (function frame() {
+      // Kích hoạt hiệu ứng pháo hoa
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+      });
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  }
 });
