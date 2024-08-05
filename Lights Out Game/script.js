@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const levelNumberElement = document.getElementById('level-number');
   const nextLevelButton = document.getElementById('next-level');
   const resetButton = document.getElementById('reset');
-
+  // Tạo ma trận vuông
   function createGrid(container, isTarget = false) {
     container.innerHTML = '';
     const cells = Array.from({ length: size }, () => Array(size).fill(null));
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     return cells;
   }
-
+  // Hàm thực hiện đổi màu
   function toggleCellAndNeighbors(row, col, cells) {
     toggleCellColor(cells[row][col]);
     if (row > 0) toggleCellColor(cells[row - 1][col]);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (col > 0) toggleCellColor(cells[row][col - 1]);
     if (col < size - 1) toggleCellColor(cells[row][col + 1]);
   }
-
+  // Đổi màu
   function toggleCellColor(cell) {
     cell.classList.toggle('black');
   }
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function checkPatternMatch(targetCells, gameCells) {
     return targetCells.every((row, i) => row.every((cell, j) => cell.classList.contains('black') === gameCells[i][j].classList.contains('black')));
   }
-
+  // Kiểm tra chiến thanwgs
   function checkLevelCompletion(gameCells) {
     if (checkPatternMatch(targetCells, gameCells)) {
       nextLevelButton.disabled = false;
@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
     checkLevelCompletion(gameCells);
     startTimer();
   }
-
   function fetchLevels() {
     fetch('levels.json')
       .then(response => response.json())
@@ -131,9 +130,9 @@ document.addEventListener('DOMContentLoaded', function () {
   playButton.addEventListener('click', () => {
     mainScreen.style.display = 'none';
     gameScreen.style.display = 'block';
-    currentLevel = 0; // Reset to level 1
-    seconds = 0; // Reset timer
-    timerElement.textContent = '00:00:00'; // Reset timer display
+    currentLevel = 0;
+    seconds = 0;
+    timerElement.textContent = '00:00:00';
     resetGame();
   });
 
@@ -201,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
     congratulationsScreen.style.display = 'none';
     mainScreen.style.display = 'flex';
   });
-
+  // Lấy thông tin các level từ json và tạo ma trận
   fetchLevels();
   const undoButton = document.getElementById('undo');
   let history = [];
