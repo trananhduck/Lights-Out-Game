@@ -5,22 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lights Out Game</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   </head>
   <body>
     <!-- Main Screen -->
     <div id="main-screen">
-      <h1>Welcome to the Lights Out Game</h1>
+      <h1>Lights Out Game</h1>
       <div class="loader">
         <div class="cell d-0"></div>
         <div class="cell d-1"></div>
         <div class="cell d-2"></div>
-
         <div class="cell d-1"></div>
         <div class="cell d-2"></div>
-
         <div class="cell d-2"></div>
         <div class="cell d-3"></div>
-
         <div class="cell d-3"></div>
         <div class="cell d-4"></div>
       </div>
@@ -28,12 +26,14 @@
       <button id="tutorial">Tutorial</button>
       <button id="help">Help</button>
     </div>
+
     <!-- Game Screen -->
-    <div id="game-screen">
+    <div id="game-screen" style="display: none">
       <div id="game-header">
         <button id="back">Back</button>
         <button id="reset">Reset</button>
         <div id="timer">Time: <span id="time">00:00:00</span></div>
+        <button id="undo">Undo</button>
       </div>
       <div id="game-container">
         <div id="target-container">
@@ -50,21 +50,48 @@
         <button id="next-level" disabled>Next Level</button>
       </div>
     </div>
+
     <!-- Congratulations Screen -->
     <div id="congratulations-screen" style="display: none">
       <h1>Congratulations!</h1>
       <p>You completed all levels in <span id="final-time">00:00:00</span></p>
       <button id="back-to-main">Back to Main Screen</button>
     </div>
-    <!-- Modal for game rules -->
+
+    <!-- Modals -->
     <div id="tutorial-modal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Game Rules</h2>
-        <p>Lights Out pattern by toggling cells on the game board...</p>
+
+        <ul>
+          <li>
+            You are provided with an 8x8 matrix of squares and a target image of
+            the same size.
+          </li>
+          <li>
+            Your task is to click on squares to change the Game Board to match
+            the Target image.
+          </li>
+          <li>
+            When you click on a square, it and the four adjacent squares (above,
+            below, left, right) will change color (from White to Black and vice
+            versa).
+          </li>
+          <li>Try to solve 10 levels as quickly as possible. Good luck!</li>
+        </ul>
       </div>
     </div>
-    <!-- Confirm Exit Modal -->
+    <div id="help-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-help">&times;</span>
+        <h2>Help</h2>
+        <p>For solution of this game, visit the following link:</p>
+        <a href="https://example.com/answers" target="_blank"
+          >Click here for soltuion</a
+        >
+      </div>
+    </div>
     <div id="exit-modal" class="modal">
       <div class="modal-content">
         <span class="close-exit">&times;</span>
@@ -73,6 +100,7 @@
         <button id="cancel-exit">No</button>
       </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>
