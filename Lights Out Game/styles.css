@@ -1,207 +1,309 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+}
+
+#main-screen {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient từ hồng đến cam */
+  border: 2px solid #333; /* Khung cho màn hình chính */
+  border-radius: 10px; /* Để các góc của khung tròn */
+  padding: 20px; /* Khoảng cách giữa nội dung và khung */
+  text-align: center; /* Căn giữa văn bản và nút */
+}
+
+/* Background cho màn hình trò chơi */
+#game-screen {
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient từ xanh đậm đến xanh sáng */
+  border: 2px solid #333; /* Khung cho màn hình trò chơi */
+  border-radius: 10px; /* Để các góc của khung tròn */
+  padding: 20px; /* Khoảng cách giữa nội dung và khung */
+  display: none; /* Đảm bảo màn hình trò chơi không hiển thị ban đầu */
+}
+
+#main-screen, #game-screen, #congratulations-screen {
+  width: 80%;
+  margin-top: 20px;
+}
+
+#main-screen, #congratulations-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#main-screen button, #congratulations-screen button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#target-container, #board-container {
+  border: 2px solid #333; /* Màu sắc và độ dày của khung */
+  border-radius: 10px; /* Để các góc của khung tròn */
+  padding: 10px; /* Khoảng cách giữa nội dung và khung */
+  background-color: #2b69ba; /* Màu nền của khung */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng cho khung */
+}
+
+#target-container {
+  border-color: #03a9f4; /* Màu viền cho phần Target */
+}
+
+#board-container {
+  border-color: #f441a5; /* Màu viền cho phần Board Game */
+}
+
+button {
+  font-size: 1.4em; /* Adjust if necessary */
+  padding: 0.6em 0.8em;
+  border-radius: 0.5em;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 2px 2px 3px #000000b4;
+  transition: all 0.3s ease;
+}
+
+button:disabled {
+  background-color: #888;
+  color: #fff;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#game-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#reset {
+  margin: 0 60px;
+}
+
+#game-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#target-container, #board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#target-image, #game-board {
+  display: grid;
+  grid-template-columns: repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px);
+  gap: 5px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.cell.black {
+  background-color: black;
+}
+
+#level-info {
+  background: #ffffff; /* Nền trắng cho phần thông tin */
+  border: 2px solid #ccc; /* Khung màu xám nhạt */
+  border-radius: 10px; /* Để các góc của khung tròn */
+  padding: 10px; /* Khoảng cách giữa nội dung và khung */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng mờ */
+  margin-top: 20px; /* Khoảng cách từ phần trên */
+  display: flex;
+  justify-content: space-between; /* Để các phần tử phân bố đều trong không gian */
+  align-items: center;
+}
+
+#level-info p {
+  font-size: 18px; /* Kích thước chữ cho thông tin Level */
+  font-weight: bold; /* Làm đậm chữ */
+  margin: 0; /* Bỏ khoảng cách ngoài của phần tử p */
+}
+
+#next-level {
+  background: linear-gradient(135deg, #4caf50, #81c784); /* Gradient từ xanh lá đậm đến sáng */
+  color: white; /* Màu chữ trắng */
+  border: none; /* Bỏ khung viền */
+  border-radius: 5px; /* Để các góc của nút tròn */
+  padding: 10px 20px; /* Khoảng cách trong nút */
+  cursor: pointer; /* Con trỏ tay khi di chuột qua nút */
+  font-size: 16px; /* Kích thước chữ cho nút */
+  transition: background 0.3s ease; /* Hiệu ứng chuyển màu nền khi hover */
+}
+
+#next-level:disabled {
+  background: #d3d3d3; /* Màu nền xám cho nút bị khóa */
+  cursor: not-allowed; /* Con trỏ tay bị khóa khi di chuột qua nút */
+}
+
+#next-level:hover:not(:disabled) {
+  background: linear-gradient(135deg, #388e3c, #66bb6a); /* Gradient khi hover trên nút */
+}
+
+#timer {
+  font-size: 18px; /* Kích thước chữ cho đồng hồ */
+  font-weight: bold; /* Làm đậm chữ */
+}
+
+.modal {
+  display: none; /* Ẩn modal mặc định */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.close, .close-exit {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close-exit:hover {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#confirm-exit, #cancel-exit {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#confirm-exit {
+  background-color: #4caf50; /* Màu nền cho nút xác nhận */
+  color: white; /* Màu chữ trắng */
+}
+
+#cancel-exit {
+  background-color: #f44336; /* Màu nền cho nút hủy bỏ */
+  color: white; /* Màu chữ trắng */
+}
+/* From Uiverse.io by alexruix */ 
+#main-screen .loader {
+  --cell-size: 52px;
+  --cell-spacing: 1px;
+  --cells: 3;
+  --total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing)));
+  display: flex;
+  flex-wrap: wrap;
+  width: var(--total-size);
+  height: var(--total-size);
+  justify-content: center;
+}
+
+#main-screen  .cell {
+  flex: 0 0 var(--cell-size);
+  margin: var(--cell-spacing);
+  background-color: transparent;
+  box-sizing: border-box;
+  border-radius: 4px;
+  animation: 1.5s ripple ease infinite;
+}
+
+#main-screen  .cell.d-1 {
+  animation-delay: 100ms;
+}
+
+#main-screen .cell.d-2 {
+  animation-delay: 200ms;
+}
+
+#main-screen  .cell.d-3 {
+  animation-delay: 300ms;
+}
+
+#main-screen .cell.d-4 {
+  animation-delay: 400ms;
+}
+
+#main-screen .cell:nth-child(1) {
+  --cell-color: #00FF87;
+}
+
+#main-screen .cell:nth-child(2) {
+  --cell-color: #0CFD95;
+}
+
+#main-screen .cell:nth-child(3) {
+  --cell-color: #17FBA2;
+}
+
+#main-screen .cell:nth-child(4) {
+  --cell-color: #23F9B2;
+}
+
+#main-screen .cell:nth-child(5) {
+  --cell-color: #30F7C3;
+}
+
+#main-screen .cell:nth-child(6) {
+  --cell-color: #3DF5D4;
+}
+
+#main-screen .cell:nth-child(7) {
+  --cell-color: #45F4DE;
+}
+
+#main-screen .cell:nth-child(8) {
+  --cell-color: #53F1F0;
+}
+
+#main-screen .cell:nth-child(9) {
+  --cell-color: #60EFFF;
+}
+
+/*Animation*/
+@keyframes ripple {
+  0% {
+    background-color: transparent;
   }
-  
-  #main-screen, #game-screen {
-    width: 80%;
-    margin-top: 20px;
+
+  30% {
+    background-color: var(--cell-color);
   }
-  
-  #main-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+  60% {
+    background-color: transparent;
   }
-  
-  #main-screen button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+
+  100% {
+    background-color: transparent;
   }
-  
-  #game-screen {
-    display: none;
-  }
-  
-  #game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    position: relative;
-    justify-content: left;
-  }
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  #reset {
-    margin: 0 60px;
-  }
-  #back {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  #timer {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  #game-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  
-  #target-container, #board-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  #target-image, #game-board {
-    display: grid;
-    grid-template-columns: repeat(8, 50px);
-    grid-template-rows: repeat(8, 50px);
-    gap: 5px;
-  }
-  
-  .cell {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border: 1px solid #ccc;
-    cursor: pointer;
-  }
-  
-  .cell.black {
-    background-color: black;
-  }
-  
-  #level-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  
-  /* Media query cho máy tính bảng */
-@media (max-width: 1024px) {
-    #game-container {
-      flex-direction: column;
-      width: 90%;
-    }
-  
-    #target-container, #board-container {
-      width: 100%;
-    }
-  
-    #target-image, #game-board {
-      grid-template-columns: repeat(8, 1fr);
-      grid-template-rows: repeat(8, 1fr);
-      gap: 2px; /* Giảm khoảng cách giữa các ô nếu cần */
-    }
-  
-    .cell {
-      width: 8vw; /* Điều chỉnh kích thước ô cho phù hợp với máy tính bảng */
-      height: 8vw; /* Điều chỉnh kích thước ô cho phù hợp với máy tính bảng */
-    }
-  
-    #level-info {
-      width: 90%;
-      justify-content: right;
-    }
-  
-    button {
-      font-size: 14px; /* Điều chỉnh kích thước chữ cho máy tính bảng */
-    }
-  
-    #timer {
-      font-size: 14px; /* Điều chỉnh kích thước chữ cho đồng hồ */
-    }
-  }
-  
-  /* Media query cho thiết bị di động */
-  @media (max-width: 768px) {
-    #game-container {
-      flex-direction: column;
-      width: 100%;
-    }
-  
-    #target-container, #board-container {
-      width: 100%;
-    }
-  
-    #target-image, #game-board {
-      grid-template-columns: repeat(8, 1fr);
-      grid-template-rows: repeat(8, 1fr);
-      gap: 0; /* Điều chỉnh khoảng cách nếu cần */
-    }
-  
-    .cell {
-      width: 10vw; /* 6% của chiều rộng viewport */
-      height: 10vw; /* 6% của chiều rộng viewport */
-    }
-  
-    #level-info {
-      width: 100%;
-    }
-  
-    button {
-      font-size: 16px; /* Điều chỉnh kích thước chữ cho thiết bị di động */
-    }
-  
-    #timer {
-      font-size: 16px; /* Điều chỉnh kích thước chữ cho đồng hồ */
-    }
-  }
-  
-  /* Modal styling */
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-  }
-  
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
+}
