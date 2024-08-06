@@ -40,6 +40,6 @@ Trò chơi **Lights Out** là một trò chơi giải đố thú vị và thử 
 - Trình duyệt web hiện đại (Google Chrome, Firefox, Safari, Microsoft Edge, v.v.).
 
 ## Liên Hệ
-- Nếu bạn có bất kỳ câu hỏi hoặc phản hồi nào, vui lòng liên hệ qua [email@example.com](mailto:email@example.com).
+- Nếu bạn có bất kỳ câu hỏi hoặc phản hồi nào, vui lòng liên hệ qua [taduc0508@gmail.com](mailto:taduc0508@gmail.com).
 
 Chúc bạn chơi vui vẻ và may mắn!
